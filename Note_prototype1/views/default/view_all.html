@@ -1,0 +1,52 @@
+{{extend 'layout.html'}}
+<html>
+<head>
+	<style>
+		#my_note{
+			width:200px;
+			height:200px;
+			text-align: center;
+			background-color:orange;
+			font-family: Courier;
+		}
+		#title{
+			font-size: 30px;
+		}
+
+	</style>
+<head>
+<body>
+{{	j=1 }}
+<table>
+<tr>
+{{for i in notes:}}
+
+{{if j%3 == 0:}}
+
+	<td>
+<div id="my_note">
+	<div id="title"><b>{{=i.Title}}</b></div><br>
+	{{=i.Info}}
+	{{j=j+1}}
+</div>
+	</td>
+</tr>
+<tr>
+
+
+{{else:}}
+
+
+<td>
+<div id="my_note">
+	<div id="title"><b>{{=i.Title}}</b></div><br>
+	{{=i.Info}}
+	{{j=j+1}}
+</div>
+</td>
+{{pass}}
+{{pass}}
+</tr>
+</table>
+</body>
+</html>
