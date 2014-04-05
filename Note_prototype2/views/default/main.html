@@ -1,0 +1,133 @@
+<html>
+
+ <head>
+
+<link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css'>
+   
+<script type="text/javascript">
+
+//document.addEventListener("DOMContentLoaded", function() {Restore();});
+
+function Restore(){
+
+var content = document.getElementById("main_content");
+ 
+if ( localStorage.getItem("stored_content")) {
+    content.value = localStorage.getItem("stored_content");
+ }
+ 
+ setInterval(function(){
+    localStorage.setItem("stored_content", content.value);
+ }, 1000);
+
+}
+//   Complete this Function Later when it Gets Triggered and How to use
+
+
+function SaveTitle () {
+
+var title=document.getElementById('Title');
+localStorage.setItem("Title",title.value); 
+
+}
+
+
+function loadXMLDoc()
+{
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    document.getElementById("response").innerHTML=xmlhttp.responseText;
+    }
+  }
+var title=localStorage.getItem("Title")
+var info= localStorage.getItem("stored_content")
+var modified=new Date();
+
+xmlhttp.open("GET","table_update?Title="+title+"&&Info="+info+"&&Modified="+modified,true);
+xmlhttp.send();
+}
+
+
+function Find_Suggestion()
+{
+var xmlhttp;
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.onreadystatechange=function()
+  {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+    Info_Title=xmlhttp.responseText;
+    document.getElementById("display").innerHTML=Info_Title;
+    json_output=eval("("+Info_Title+")");
+    
+    //alert(json_output["names"][0])
+
+    //print DIV(json_output, _id=0);
+
+    }
+  }
+
+var user_input=document.getElementById("Search").value
+
+xmlhttp.open("GET","auto_suggestion?sug="+user_input,true);
+xmlhttp.send();
+}
+
+
+
+</script>
+   
+
+   <style>
+
+     textarea {
+       font-family: 'The Girl Next Door', cursive;
+       text-shadow: 4px 4px 4px #aaa;
+       font-size: 28px;
+     }
+
+   </style>
+
+
+ </head>
+
+ <body>
+    
+    <input  id="Title"/>
+    <button id="save_title" onclick="SaveTitle()"> Save Title </button>
+    
+    <button id="restore_content" onclick="Restore()"> Restore </button>
+    <textarea id="main_content" onclick="Restore()"></textarea>
+    <button id="sync" onclick="loadXMLDoc()">Sync Now</button>
+
+    <div id="response"></div>
+
+    <input  id="Search"/ onkeyup="Find_Suggestion()">
+    <button id="Open" > Open </button>
+
+
+    <div id="display"></div>
+    <button onclick="location.href='{{=URL(r=request,f='view_all')}}'"> View Notes</button>
+    
+  </body>
+
+</html>
+
