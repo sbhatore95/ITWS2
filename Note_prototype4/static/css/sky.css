@@ -1,0 +1,24 @@
+#main_body
+{
+	position: relative;
+}
+
+
+#top_bar{
+position: absolute;
+margin:0px 0px 0px;
+height:40px;
+background-color: #3030FF;
+
+}
+
+
+#sidebar{
+position: absolute;
+margin-left: 0px;
+margin-top: 40px; 		/*This is what top-Bar leaves*/
+margin-bottom: 0px; 
+width: 100px; 
+background-color:#CCCCFF;
+
+}
