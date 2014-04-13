@@ -1,0 +1,74 @@
+{{extend 'layout.html'}}
+
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+	<style type="text/css">
+		#body{
+			font-size: 20px;
+			font-style: italic;
+			font-family: sans-serif;
+		}
+
+		#note{
+			width:600px;
+			margin-left: 300px;
+			background-color: LightSkyBlue;
+		}
+
+		.h1{
+			text-align: center;
+			font-size: 40px;
+			font-family: Tangerine;
+			color:black;
+		}
+		#body{
+						word-wrap: break-word;
+
+		}
+
+	</style>
+
+<script>
+
+function loadXMLDoc()
+{
+var xmlhttp1;
+if (window.XMLHttpRequest)
+  {xmlhttp1=new XMLHttpRequest();
+  }
+else
+  {xmlhttp1=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp1.onreadystatechange=function()
+  {
+  if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
+    {
+    document.getElementById("response1").innerHTML=xmlhttp1.responseText;
+    }
+  }
+
+var title=document.getElementById("title").innerHTML
+var reciever=document.getElementById("reciever").value
+
+xmlhttp1.open("GET","../sendmail?Title="+title+"&&Reciever="+reciever,true);
+ xmlhttp1.send();
+}
+
+</script>
+</head>
+<body>
+	<div id="note">
+		<h1 class="h1" id="title">{{=ans}}</h1>
+		<div id="body">{{=ans2}}</div>
+	</div>
+	<button onclick="location.href='{{=URL(r=request,f='delete_note',args=ans)}}'"> Delete Note</button>
+	<button onclick="location.href='{{=URL(r=request,f='edit_note',args=ans)}}'"> Edit Note</button>
+	<div>
+		<input id="reciever" />
+		<button onclick="loadXMLDoc()">send mail</button>
+		<div id="response1"> </div>
+
+	</div>
+</body>
+</html>

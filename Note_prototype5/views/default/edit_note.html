@@ -1,0 +1,60 @@
+{{extend 'layout.html'}}
+
+<html>
+<head>
+	<script>
+
+	function apply()
+	{
+		
+			var xmlhttp;
+
+			if (window.XMLHttpRequest)
+			  {
+			  	xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {
+			  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+			xmlhttp.onreadystatechange=function()
+			  {
+				  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				    {
+				    document.getElementById("response").innerHTML=xmlhttp.responseText;
+				    }
+			  }
+			var title = document.getElementById("id_title").innerHTML;
+			var info = document.getElementById("change").value;
+			
+			xmlhttp.open("GET","../update_note?Title="+title+"&&Info="+info,true);
+			xmlhttp.send();
+		}
+				
+	
+	</script> 
+
+</head>
+<body>
+	{{for i in var:
+		val = i.Info
+		title = i.Title
+		pass
+	}}
+
+	<div id="response">
+	</div>
+
+	<div id="id_title">
+		{{=title}}
+	</div>
+
+	<textarea id="change">
+		{{=val}}
+	</textarea>
+
+	<button onclick="apply()" >
+		Apply Changes
+	</button>
+</body>
+</html>
