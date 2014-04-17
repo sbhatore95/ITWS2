@@ -1,0 +1,219 @@
+(dp1
+S'output'
+p2
+S'Unable to open included view file: /ug/ug2k13/csd/yash.khandelwal/Desktop/web2py/applications/notepad_sid/views/main.html'
+p3
+sS'layer'
+p4
+S'ParserContainer'
+p5
+sS'code'
+p6
+S'{{extend \'main.html\'}}\n  \n<link href=\'http://fonts.googleapis.com/css?family=The+Girl+Next+Door\' rel=\'stylesheet\' type=\'text/css\'>\n   \n<script type="text/javascript">\n\n//Format is --- {Title:[content,time]}\n\n\n/* Improve the check field for the text-box ..... choose a better method .......*/\n\nfunction set_secret_content( the_head ) {\n  var xmlhttp;\nif (window.XMLHttpRequest)\n  {xmlhttp=new XMLHttpRequest();\n  }\nelse\n  {xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");\n  }\n\nxmlhttp.open("GET","secret_content?head="+the_head,true);\nxmlhttp.send();\n\n}\n\nfunction set_secret_tag( the_head ) {\n  var xmlhttp;\nif (window.XMLHttpRequest)\n  {xmlhttp=new XMLHttpRequest();\n  }\nelse\n  {xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");\n  }\nxmlhttp.open("GET","secret_tag?head="+the_head,true);\nxmlhttp.send();\n\n  }\n\nfunction set_secret_title( the_head ) {\n  var xmlhttp;\nif (window.XMLHttpRequest)\n  {xmlhttp=new XMLHttpRequest();\n  }\nelse\n  {xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");\n  }\nxmlhttp.open("GET","secret_title?head="+the_head,true);\nxmlhttp.send();\n\n  }\n\n\nfunction go_to_url_content (title) {\n      //alert(title);\n      //redirect{{=URL(\'http://127.0.0.1:8000/Note/default/content\')}};//+\'?head=\'+title;\n      var inside=document.getElementById(\'Search_content\');\n      inside.value=title; \n      set_secret_content(title);\n   \n        }\n\nfunction go_to_url_title (title) {\n      //alert(title);\n      //redirect{{=URL(\'http://127.0.0.1:8000/Note/default/content\')}};//+\'?head=\'+title;\n      var inside=document.getElementById(\'Search_title\');\n      inside.value=title; \n      set_secret_content(title);\n   \n        }\nfunction go_to_url_tag (title) {\n      //alert(title);\n      //redirect{{=URL(\'http://127.0.0.1:8000/Note/default/content\')}};//+\'?head=\'+title;\n      var inside=document.getElementById(\'Search_tags\');\n      inside.value=title; \n      set_secret_content(title);\n   \n        }\n\n\n\nfunction Find_Suggestion()\n{\nvar xmlhttp;\nif (window.XMLHttpRequest)\n  {xmlhttp=new XMLHttpRequest();\n  }\nelse\n  {xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");\n  } \nxmlhttp.onreadystatechange=function()\n  {\n  if (xmlhttp.readyState==4 && xmlhttp.status==200)\n    {\n    Info_Title=xmlhttp.responseText;\n//    document.getElementById("display").innerHTML=Info_Title;\n    json_output=eval("("+Info_Title+")");\n\n   var myNode = document.getElementById("display");\n     while (myNode.firstChild)\n      {\n           myNode.removeChild(myNode.firstChild);\n      } \n\n        for (var i in json_output["names"])\n        {\n              var temp=json_output["names"][i];\n              var div = document.createElement(\'div\')\n              div.id=i;\n              div.innerHTML=temp;\n              div.setAttribute("onclick","go_to_url_content(this.innerHTML);");\n              document.getElementById("display").appendChild(div)                \n               //URL(c=\'default\',args=[\'AAA\'], vars={\'id\': \'9\'}))}}\n//<div id="myid"></div>//json_output["names"][i]\n\n        }\n\n    }\n  }\n\nvar user_input=document.getElementById("Search_content").value\n\n\n\n\nif (user_input.match(/^\\s*$/)) {\n    // nothing, or nothing but whitespace\n\n  document.getElementById("display").innerHTML=\'\'\n} \n\nelse\n{\nxmlhttp.open("GET","auto_suggestion?sug="+user_input,true);\nxmlhttp.send();\n}\n}\n\n\nfunction Find_Suggestion_by_Title()\n{\nvar xmlhttp;\nif (window.XMLHttpRequest)\n  {// code for IE7+, Firefox, Chrome, Opera, Safari\n  xmlhttp=new XMLHttpRequest();\n  }\nelse\n  {// code for IE6, IE5\n  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");\n  }\nxmlhttp.onreadystatechange=function()\n  {\nif (xmlhttp.readyState==4 && xmlhttp.status==200)\n    {\n    Info_Title=xmlhttp.responseText;\n//    document.getElementById("display").innerHTML=Info_Title;\n    json_output=eval("("+Info_Title+")");\n\n   var myNode = document.getElementById("display_title");\n     while (myNode.firstChild)\n      {\n           myNode.removeChild(myNode.firstChild);\n      } \n\n        for (var i in json_output["names"])\n        {\n              var temp=json_output["names"][i];\n              var div = document.createElement(\'div\')\n              div.id=i;\n              div.innerHTML=temp;\n              div.setAttribute("onclick","go_to_url_title(this.innerHTML);");\n              document.getElementById("display_title").appendChild(div)                \n               //URL(c=\'default\',args=[\'AAA\'], vars={\'id\': \'9\'}))}}\n//<div id="myid"></div>//json_output["names"][i]\n\n        }\n\n    }\n  }\n\nvar user_input=document.getElementById("Search_title").value\n\nif (user_input.match(/^\\s*$/)) {\n    // nothing, or nothing but whitespace\n\n  document.getElementById("display_title").innerHTML=\'\'\n} \nelse\n{\nxmlhttp.open("GET","auto_suggestion_by_title?sug="+user_input,true);\nxmlhttp.send();\n}\n}\n\n\nfunction Find_Suggestion_by_Tags()\n{\nvar xmlhttp;\nif (window.XMLHttpRequest)\n  {// code for IE7+, Firefox, Chrome, Opera, Safari\n  xmlhttp=new XMLHttpRequest();\n  }\nelse\n  {// code for IE6, IE5\n  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");\n  }\nxmlhttp.onreadystatechange=function()\n  {\nif (xmlhttp.readyState==4 && xmlhttp.status==200)\n    {\n    Info_Title=xmlhttp.responseText;\n//    document.getElementById("display").innerHTML=Info_Title;\n    json_output=eval("("+Info_Title+")");\n\n   var myNode = document.getElementById("display_tags");\n     while (myNode.firstChild)\n      {\n           myNode.removeChild(myNode.firstChild);\n      } \n\n        for (var i in json_output["names"])\n        {\n              var temp=json_output["names"][i];\n              var div = document.createElement(\'div\')\n              div.id=i;\n              div.innerHTML=temp;\n              div.setAttribute("onclick","go_to_url_tag(this.innerHTML);");\n              document.getElementById("display_tags").appendChild(div)                \n               //URL(c=\'default\',args=[\'AAA\'], vars={\'id\': \'9\'}))}}\n//<div id="myid"></div>//json_output["names"][i]\n\n        }\n\n    }\n  }\n\nvar user_input=document.getElementById("Search_tags").value\n\nif (user_input.match(/^\\s*$/)) {\n    // nothing, or nothing but whitespace\n\n  document.getElementById("display_tags").innerHTML=\'\'\n} \nelse\n{\nxmlhttp.open("GET","auto_suggestion_by_tags?sug="+user_input,true);\nxmlhttp.send();\n}\n}\n\n\n</script>\n   \n\n   <style>\n\n          .btn{\n      border-radius: 3px;\n      background-color: #6Eb86E;\n    }\n\n   </style>\n\n\n    <div id ="main_cover" class="col-md-6">\n    <!--div id="fb-root"></div>\n\n    <fb:login-button show-faces="true" width="200" max-rows="1"></fb:login-button>\n  <div class="fb-like" data-href="http://google.com" data-layout="standard" data-action="like" data-show-faces="true" data-share="true">\n  </div-->\n\n    <div class="col-lg-8 mt">\n        <p><input  id="Search_content" placeholder="Search by Content" / onkeyup="Find_Suggestion()">\n    <a href="manage"><button class="btn btn-info" id="Open_Content" > Search by content </button></a>\n\n    <div id="display"></div>\n</p>\n      </div>\n\n    <!--input  id="Search" placeholder="Search by Content" / onkeyup="Find_Suggestion()">\n    <a href="manage"><button id="Open_Content" > Search by content </button></a>\n\n    <div id="display"></div-->\n\n    <div class="col-lg-8 mt">\n        <p><input id="Search_tags" placeholder="Search by Tags"  onkeyup="Find_Suggestion_by_Tags()" > \n    <a href="manage"><button  class="btn btn-info" id="Open_Tag"> Search by Tags </button></a>\n\n   \n      <div id="display_tags"></div>\n\n</p>\n      </div>\n    \n\n    <div class="col-lg-8 mt">\n        <p>\n          <input id="Search_title" placeholder="Search by Title"  onkeyup="Find_Suggestion_by_Title()" > \n          <a href="manage"><button  class="btn btn-info" id="Open_Title"> Search by Title </button></a>\n          <div id="display_title"></div>\n\n        </p>\n\n      </div>\n    \n\n  </div>\n<script>\n /* window.fbAsyncInit = function() {\n  FB.init({\n    appId      : 227235817483297,\n    status     : true, // check login status\n    cookie     : true, // enable cookies to allow the server to access the session\n    xfbml      : true  // parse XFBML\n  });\n\n  // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired\n  // for any authentication related change, such as login, logout or session refresh. This means that\n  // whenever someone who was previously logged out tries to log in again, the correct case below \n  // will be handled. \n  FB.Event.subscribe(\'auth.authResponseChange\', function(response) {\n    // Here we specify what we do with the response anytime this event occurs. \n    if (response.status === \'connected\') {\n      // The response object is returned with a status field that lets the app know the current\n      // login status of the person. In this case, we\'re handling the situation where they \n      // have logged in to the app.\n      window.open(\'http://www.yahoo.com\');\n      testAPI();\n    } else if (response.status === \'not_authorized\') {\n      // In this case, the person is logged into Facebook, but not into the app, so we call\n      // FB.login() to prompt them to do so. \n      // In real-life usage, you wouldn\'t want to immediately prompt someone to login \n      // like this, for two reasons:\n      // (1) JavaScript created popup windows are blocked by most browsers unless they \n      // result from direct interaction from people using the app (such as a mouse click)\n      // (2) it is a bad experience to be continually prompted to login upon page load.\n      FB.login();\n    } else {\n      // In this case, the person is not logged into Facebook, so we call the login() \n      // function to prompt them to do so. Note that at this stage there is no indication\n      // of whether they are logged into the app. If they aren\'t then they\'ll see the Login\n      // dialog right after they log in to Facebook. \n      // The same caveats as above apply to the FB.login() call here.\n      FB.login();\n    }\n  });\n  };\n\n  // Load the SDK asynchronously\n  (function(d){\n   var js, id = \'facebook-jssdk\', ref = d.getElementsByTagName(\'script\')[0];\n   if (d.getElementById(id)) {return;}\n   js = d.createElement(\'script\'); js.id = id; js.async = true;\n   js.src = "//connect.facebook.net/en_US/all.js";\n   ref.parentNode.insertBefore(js, ref);\n  }(document));\n\n  // Here we run a very simple test of the Graph API after login is successful. \n  // This testAPI() function is only called in those cases. \n  function testAPI() {\n    console.log(\'Welcome!  Fetching your information.... \');\n    FB.api(\'/me\', function(response) {\n      console.log(\'Good to see you, \' + response.name + \'.\');\n    });\n  }*/\n</script>\n'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__getslice__'
+p12
+S"<method-wrapper '__getslice__' of exceptions.IOError object>"
+p13
+sS'__str__'
+p14
+S"<method-wrapper '__str__' of exceptions.IOError object>"
+p15
+sS'__reduce__'
+p16
+S'<built-in method __reduce__ of exceptions.IOError object>'
+p17
+sS'__dict__'
+p18
+S'{}'
+p19
+sS'__sizeof__'
+p20
+S'<built-in method __sizeof__ of exceptions.IOError object>'
+p21
+sS'__init__'
+p22
+S"<method-wrapper '__init__' of exceptions.IOError object>"
+p23
+sS'__setattr__'
+p24
+S"<method-wrapper '__setattr__' of exceptions.IOError object>"
+p25
+sS'__reduce_ex__'
+p26
+S'<built-in method __reduce_ex__ of exceptions.IOError object>'
+p27
+sS'__new__'
+p28
+S'<built-in method __new__ of type object>'
+p29
+sS'errno'
+p30
+S'2'
+sS'__format__'
+p31
+S'<built-in method __format__ of exceptions.IOError object>'
+p32
+sS'__class__'
+p33
+S"<type 'exceptions.IOError'>"
+p34
+sS'filename'
+p35
+S"'/ug/ug2k13/csd/yash.khandelwal/Desktop/web2py/applications/notepad_sid/views/main.html'"
+p36
+sS'__doc__'
+p37
+S"'I/O operation failed.'"
+p38
+sS'__getitem__'
+p39
+S"<method-wrapper '__getitem__' of exceptions.IOError object>"
+p40
+sS'__setstate__'
+p41
+S'<built-in method __setstate__ of exceptions.IOError object>'
+p42
+sS'__getattribute__'
+p43
+S"<method-wrapper '__getattribute__' of exceptions.IOError object>"
+p44
+sS'args'
+p45
+S"(2, 'No such file or directory')"
+p46
+sS'__subclasshook__'
+p47
+S'<built-in method __subclasshook__ of type object>'
+p48
+sS'__unicode__'
+p49
+S'<built-in method __unicode__ of exceptions.IOError object>'
+p50
+sS'strerror'
+p51
+S"'No such file or directory'"
+p52
+sS'__delattr__'
+p53
+S"<method-wrapper '__delattr__' of exceptions.IOError object>"
+p54
+sS'__repr__'
+p55
+S"<method-wrapper '__repr__' of exceptions.IOError object>"
+p56
+sS'__hash__'
+p57
+S"<method-wrapper '__hash__' of exceptions.IOError object>"
+p58
+ssS'evalue'
+p59
+S"[Errno 2] No such file or directory: '/ug/ug2k13/csd/yash.khandelwal/Desktop/web2py/applications/notepad_sid/views/main.html'"
+p60
+sS'frames'
+p61
+(lp62
+(dp63
+S'file'
+p64
+S'/ug/ug2k13/csd/yash.khandelwal/Desktop/web2py/gluon/template.py'
+p65
+sS'dump'
+p66
+(dp67
+S'builtinopen'
+p68
+S'<built-in function open>'
+p69
+sS'fileobj'
+p70
+S'undefined'
+p71
+sS'filepath'
+p72
+S"'/ug/ug2k13/csd/yash.khandelwal/Desktop/web2py/applications/notepad_sid/views/main.html'"
+p73
+ssS'lnum'
+p74
+I447
+sS'lines'
+p75
+(dp76
+I448
+S'            text = fileobj.read()'
+p77
+sI449
+S'            fileobj.close()'
+p78
+sI450
+S'        except IOError:'
+p79
+sI451
+S"            self._raise_error('Unable to open included view file: ' + filepath)"
+p80
+sI442
+S'        # Get the path of the file on the system.'
+p81
+sI443
+S'        filepath = self.path and os.path.join(self.path, filename) or filename'
+p82
+sI444
+S''
+sI445
+S'        # try to read the text.'
+p83
+sI446
+S'        try:'
+p84
+sI447
+S"            fileobj = open(filepath, 'rb')"
+p85
+ssS'call'
+p86
+S"(self=<gluon.template.TemplateParser object>, filename='main.html')"
+p87
+sS'func'
+p88
+S'_get_file_text'
+p89
+sasS'pyver'
+p90
+S'Python 2.7: /usr/bin/python (prefix: /usr)'
+p91
+sS'etype'
+p92
+S"<type 'exceptions.IOError'>"
+p93
+sS'date'
+p94
+S'Thu Apr 17 14:38:23 2014'
+p95
+sS'locals'
+p96
+(dp97
+S'self'
+p98
+S'<gluon.template.TemplateParser object>'
+p99
+sS'filepath'
+p100
+S"'/ug/ug2k13/csd/yash.khandelwal/Desktop/web2py/applications/notepad_sid/views/main.html'"
+p101
+sS'context'
+p102
+S"{'A': <class 'gluon.html.A'>, 'ANY_OF': <class 'gluon.validators.ANY_OF'>, 'Auth': <class 'gluon.tools.Auth'>, 'B': <class 'gluon.html.B'>, 'BEAUTIFY': <class 'gluon.html.BEAUTIFY'>, 'BODY': <class 'gluon.html.BODY'>, 'BR': <class 'gluon.html.BR'>, 'BUTTON': <class 'gluon.html.BUTTON'>, 'CAT': <class 'gluon.html.CAT'>, 'CENTER': <class 'gluon.html.CENTER'>, ...}"
+p103
+sg35
+S"'main.html'"
+p104
+sssS'traceback'
+p105
+S'Traceback (most recent call last):\n  File "/ug/ug2k13/csd/yash.khandelwal/Desktop/web2py/gluon/template.py", line 447, in _get_file_text\n    fileobj = open(filepath, \'rb\')\nIOError: [Errno 2] No such file or directory: \'/ug/ug2k13/csd/yash.khandelwal/Desktop/web2py/applications/notepad_sid/views/main.html\'\n'
+p106
+s.

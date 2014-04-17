@@ -1,0 +1,56 @@
+{{extend 'edit_note.html'}}
+
+	<script>
+
+	function apply()
+	{
+		
+			var xmlhttp;
+
+			if (window.XMLHttpRequest)
+			  {
+			  	xmlhttp=new XMLHttpRequest();
+			  }
+			else
+			  {
+			  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+			xmlhttp.onreadystatechange=function()
+			  {
+				  if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				    {
+				    document.getElementById("response").innerHTML=xmlhttp.responseText;
+				    }
+			  }
+			var title = document.getElementById("id_title").innerHTML;
+			var info = document.getElementById("change").value;
+			var modified = new Date()
+			
+			xmlhttp.open("GET","../update_note?Title="+title+"&&Info="+info+"&&Modified="+modified,true);
+			xmlhttp.send();
+		}
+				
+	
+	</script> 
+<style>	.btn{border-radius: 4px;background-color: #6Eb86E;}</style>
+	{{for i in var:
+		val = i.Info
+		title = i.Title
+		pass
+	}}
+
+	<div id="response">
+	</div>
+<h3><b>
+	<div id="id_title">
+	{{=title}}
+	</div>
+</h3></b>
+
+	<textarea id="change" rows="10" cols="50">
+		{{=val}}
+	</textarea>
+
+	<button class="btn btn-info" onclick="apply()" >
+	<span class="glyphicon glyphicon-refresh"></span>	Apply Changes
+	</button>

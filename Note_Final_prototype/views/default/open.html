@@ -1,0 +1,94 @@
+{{extend 'open.html'}}
+	<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Tangerine">
+	<style type="text/css">
+		
+		#skillx {
+	background-color: #85ADFF;
+	padding-top: 50px;
+	padding-bottom: 50px;
+	margin-top: 50px;
+	outline: 1px solid #66CCFF;
+
+}
+
+#skillx h3 {
+	color: white;
+}
+
+#skillx p {
+	color: white;
+	font-weight: 400;
+}
+		#element{
+						word-wrap: break-word;
+				}	
+
+		.btn{
+			    width: 8em;  height: 3em;
+			border-radius: 4px;
+			background-color: #6Eb86E;
+		}
+
+		#reciever{
+						    width: 9em;  height: 3em;
+
+		}
+
+	</style>
+
+<script>
+
+function loadXMLDoc()
+{
+var xmlhttp1;
+if (window.XMLHttpRequest)
+  {xmlhttp1=new XMLHttpRequest();
+  }
+else
+  {xmlhttp1=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp1.onreadystatechange=function()
+  {
+  if (xmlhttp1.readyState==4 && xmlhttp1.status==200)
+    {
+    document.getElementById("response1").innerHTML=xmlhttp1.responseText;
+    }
+  }
+
+var title=document.getElementById("title").innerHTML
+var reciever=document.getElementById("reciever").value
+
+xmlhttp1.open("GET","../sendmail?Title="+title+"&&Reciever="+reciever,true);
+ xmlhttp1.send();
+}
+
+</script>
+		<div id="skillx">
+			<p>{{=modified}}</p>
+		<h3 id="title">{{=ans}}</h3>
+		<div id="element">{{=ans2}}</div>
+		</div>
+		<div class="col-lg-3 mt">
+				<p><button class="btn btn-primary " onclick="location.href='{{=URL(r=request,f='delete_note',args=ans)}}'"> <span class="glyphicon glyphicon-remove"></span> Delete Note</button></p>
+			</div>
+
+		<div class="col-lg-3 mt">
+				<p><button  class="btn btn-primary" onclick="location.href='{{=URL(r=request,f='edit_note',args=ans)}}'"> <span class="glyphicon glyphicon-edit"></span>Edit Note</button></p>
+			</div>
+
+
+		<div class="col-lg-2 mt">
+		<input id="reciever" placeholder="E-mail address" />	
+		</div>
+
+		<div class="col-lg-3 mt">	
+			<p>
+		<button class="btn btn-primary " onclick="loadXMLDoc()">Send mail</button>
+		</p>
+		</div>
+
+		<div id="response1"> </div>
+
+	
+		
+	

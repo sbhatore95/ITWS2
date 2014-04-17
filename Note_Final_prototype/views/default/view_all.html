@@ -1,0 +1,75 @@
+{{extend 'view_all.html'}}
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
+	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	
+	<script type="text/javascript">
+
+	
+	</script>
+
+	<style>
+		#sortable { 
+			list-style-type: none; margin: 2px;
+			padding: 2px; 
+			width: 1000px;
+		}
+		#sortable li {
+			margin: 3px 3px 3px 3px; 
+			padding: 3px; 
+			float: left; 
+			width: 200px; 
+			height: 200px; 
+			font-size: 20px;
+			background-color:#8AE6B8;
+			text-align: center;
+			outline: 1px solid #66CCFF;
+
+		}
+
+		a{
+			color:black;
+		}
+		a:hover{
+			text-decoration:none;
+		}
+
+		.redrag{
+			word-wrap: break-word;
+		}
+	</style>
+
+    {{	j=1 }}
+		<ul id="sortable">
+
+{{for i in notes:}}
+
+
+<li class="redrag" id="{{=i.Title}}">
+	<a href={{=URL("open",args=i.Title)}} class="a" id="{{=i.Title}}"  >
+	<div id="title"><h3>{{=i.Title}}</h3></div><br>
+	{{if (len(i.Info)< 65):}}
+	<h4>{{=i.Info}}</h4>
+	{{else:}}
+	<h4>{{=i.Info[0:65]}}{{x="........"}}{{=x}}</h4>
+	{{pass}}
+	{{j=j+1}}
+</a>
+</li>
+
+{{pass}}
+</ul>
+
+ <script>
+$(function() {
+$( "#sortable" ).sortable(
+	{
+		cursor: 'move',
+		opacity: 0.6
+	});
+
+});
+</script>
+ 
