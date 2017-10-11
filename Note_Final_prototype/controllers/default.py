@@ -269,7 +269,7 @@ def edit_note():
     temp_note = db(db.Notes.Creator == auth.user.id).select()
     for i in temp_note:
         if(i.Title==title):
-         ans.append(i)
+            ans.append(i)
     return dict(var=ans)
 
 @auth.requires_login()
